@@ -13,18 +13,7 @@ import (
 )
 
 func main() {
-	if _, err := os.Stat(note.File); os.IsNotExist(err) {
-		if _, err := os.Stat(note.Directory); os.IsNotExist(err) {
-			dirErr := os.Mkdir(note.Directory, 0755)
-			if dirErr != nil {
-				log.Fatal(dirErr)
-			}
-		}
-
-		var notes []string
-
-		files.Overwrite(notes)
-	}
+	checkFile()
 
 	file, err := os.ReadFile(note.File)
 	if err != nil {
@@ -71,5 +60,20 @@ L:
 			fmt.Println("unknown action")
 			continue
 		}
+	}
+}
+
+func checkFile() {
+	if _, err := os.Stat(note.File); os.IsNotExist(err) {
+		if _, err := os.Stat(note.Directory); os.IsNotExist(err) {
+			dirErr := os.Mkdir(note.Directory, 0755)
+			if dirErr != nil {
+				log.Fatal(dirErr)
+			}
+		}
+
+		var notes []string
+
+		files.Overwrite(notes)
 	}
 }
