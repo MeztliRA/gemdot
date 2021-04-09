@@ -50,7 +50,7 @@ func main() {
 
 L:
 	for {
-		fmt.Print("what do you want to do(view, add) ")
+		fmt.Print("what do you want to do(view, add, delete) ")
 		response, err := reader.ReadString('\n')
 		if err != nil {
 			log.Fatal(err)
@@ -63,6 +63,10 @@ L:
 			break L
 		case "Add", "add", "ADD":
 			notes = files.Add(notes)
+			files.Overwrite(notes)
+			break L
+		case "Delete", "delete", "DELETE":
+			notes = files.Delete(notes)
 			files.Overwrite(notes)
 			break L
 		default:
