@@ -27,7 +27,7 @@ func View(notes []string) {
 func Add(notes []string) []string {
 	reader := bufio.NewReader(os.Stdin)
 
-	fmt.Print("enter new note: ")
+	fmt.Print("\nenter new note: ")
 	note, err := reader.ReadString('\n')
 	if err != nil {
 		log.Fatal(err)
@@ -36,7 +36,7 @@ func Add(notes []string) []string {
 
 	notes = append(notes, note)
 
-	fmt.Println("added new note!")
+	fmt.Println("\nadded new note!")
 
 	return notes
 }
@@ -75,7 +75,7 @@ func Delete(notes []string) []string {
 
 			fmt.Println("\ndeleting note...")
 			notes = removeIndex(notes, id)
-			fmt.Println("done!")
+			fmt.Println("\ndone!")
 
 			return notes
 		}
