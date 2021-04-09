@@ -48,37 +48,35 @@ func Delete(notes []string) []string {
 		fmt.Println("\tno notes to delete")
 		return notes
 	} else {
+		for i, v := range notes {
+			fmt.Printf("\t[%d] %s\n", i, v)
+		}
+
 		for {
-			for i, v := range notes {
-				fmt.Printf("\t[%d] %s\n", i, v)
+			fmt.Print("\nplease enter the id of the note you want to delete: ")
+			inputtedId, err := reader.ReadString('\n')
+			if err != nil {
+				log.Fatal(err)
+			}
+			inputtedId = strings.Trim(inputtedId, "\n")
+			id, err := strconv.Atoi(inputtedId)
+			if err != nil {
+				continue
 			}
 
-			for {
-				fmt.Print("\nplease enter the id of the note you want to delete: ")
-				inputtedId, err := reader.ReadString('\n')
-				if err != nil {
-					log.Fatal(err)
-				}
-				inputtedId = strings.Trim(inputtedId, "\n")
-				id, err := strconv.Atoi(inputtedId)
-				if err != nil {
-					continue
-				}
-
-				if id >= len(notes) {
-					continue
-				}
-
-				if id < 0 {
-					continue
-				}
-
-				fmt.Println("\ndeleting note...")
-				notes = removeIndex(notes, id)
-				fmt.Println("done!")
-
-				return notes
+			if id >= len(notes) {
+				continue
 			}
+
+			if id < 0 {
+				continue
+			}
+
+			fmt.Println("\ndeleting note...")
+			notes = removeIndex(notes, id)
+			fmt.Println("done!")
+
+			return notes
 		}
 	}
 }
