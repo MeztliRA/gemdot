@@ -23,15 +23,7 @@ func main() {
 
 		var notes []string
 
-		jsonData, err := json.MarshalIndent(notes, "", "	")
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		writeErr := os.WriteFile(note.File, jsonData, 0644)
-		if writeErr != nil {
-			log.Fatal(writeErr)
-		}
+		files.Overwrite(notes)
 	}
 
 	file, err := os.ReadFile(note.File)
