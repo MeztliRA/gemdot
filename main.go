@@ -50,7 +50,7 @@ func main() {
 
 L:
 	for {
-		fmt.Print("what do you want to do(view, add, delete) ")
+		fmt.Print("what do you want to do(view, add, delete, clear) ")
 		response, err := reader.ReadString('\n')
 		if err != nil {
 			log.Fatal(err)
@@ -68,6 +68,12 @@ L:
 		case "Delete", "delete", "DELETE":
 			notes = files.Delete(notes)
 			files.Overwrite(notes)
+			break L
+		case "Clear", "clear", "CLEAR":
+			notesGet, cleared := files.Clear()
+			if cleared {
+				files.Overwrite(notesGet)
+			}
 			break L
 		default:
 			fmt.Println("unknown action")
