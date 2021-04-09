@@ -42,13 +42,13 @@ func Add(notes []string) []string {
 }
 
 func Delete(notes []string) []string {
-	reader := bufio.NewReader(os.Stdin)
-
 	fmt.Println("\nnotes:")
 	if len(notes) == 0 {
 		fmt.Println("\tno notes to delete")
 		return notes
 	} else {
+		reader := bufio.NewReader(os.Stdin)
+
 		for i, v := range notes {
 			fmt.Printf("\t[%d] %s\n", i, v)
 		}
