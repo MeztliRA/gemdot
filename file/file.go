@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	note "github.com/MeztliRA/gemdot/notes"
+	"github.com/MeztliRA/yon"
 )
 
 func View(notes []string) {
@@ -78,6 +79,24 @@ func Delete(notes []string) []string {
 
 			return notes
 		}
+	}
+}
+
+func Clear() ([]string, bool) {
+	var (
+		notes   []string
+		cleared bool
+	)
+
+	response := yon.Prompt("\nare you sure you want to delete all your note")
+	if response == yon.Yes {
+		fmt.Println("\nall notes deleted!")
+		cleared = true
+		return notes, cleared
+	} else {
+		fmt.Println("\ncancelled...")
+		cleared = false
+		return notes, cleared
 	}
 }
 
