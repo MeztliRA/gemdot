@@ -1,3 +1,8 @@
+/*
+A CLI app to store your notes.
+
+written in go.
+*/
 package main
 
 import (
