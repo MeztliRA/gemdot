@@ -18,8 +18,8 @@ func View(notes []string) {
 	if len(notes) == 0 {
 		fmt.Println("\tno notes")
 	} else {
-		for i := 0; i < len(notes); i++ {
-			fmt.Printf("\t- %s\n", notes[i])
+		for _, v := range notes {
+			fmt.Printf("\t- %s\n", v)
 		}
 	}
 }
