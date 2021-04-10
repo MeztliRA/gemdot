@@ -38,9 +38,9 @@ func userAction(notes []string) {
 	firstTime := true
 	for {
 		if firstTime {
-			color.Green("what do you want to do(view, add, delete, clear, help) ")
+			color.Green("what do you want to do(view, add, delete, clear, help, quit) ")
 		} else {
-			color.Green("\nwhat do you want to do(view, add, delete, clear, help) ")
+			color.Green("\nwhat do you want to do(view, add, delete, clear, help, quit) ")
 		}
 		response, err := reader.ReadString('\n')
 		if err != nil {
@@ -64,6 +64,8 @@ func userAction(notes []string) {
 			}
 		case "Help", "help", "HELP":
 			help.Print()
+		case "Quit", "quit", "QUIT":
+			os.Exit(0)
 		default:
 			color.Red("unknown action")
 		}
