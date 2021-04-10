@@ -117,6 +117,37 @@ func Overwrite(notes []string) {
 	}
 }
 
+func Check() {
+	if _, err := os.Stat(note.File); os.IsNotExist(err) {
+		if _, err := os.Stat(note.Directory); os.IsNotExist(err) {
+			dirErr := os.Mkdir(note.Directory, 0755)
+			if dirErr != nil {
+				log.Fatal(dirErr)
+			}
+		}
+
+		var notes []string
+
+		Overwrite(notes)
+	}
+}
+
+func Read() []string {
+	file, err := os.ReadFile(note.File)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var notes []string
+
+	unmarshalErr := json.Unmarshal(file, &notes)
+	if unmarshalErr != nil {
+		log.Fatal(unmarshalErr)
+	}
+
+	return notes
+}
+
 func removeIndex(notes []string, index int) []string {
 	return append(notes[:index], notes[index+1:]...)
 }
