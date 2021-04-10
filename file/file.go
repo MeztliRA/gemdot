@@ -9,22 +9,16 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/MeztliRA/gemdot/color"
 	note "github.com/MeztliRA/gemdot/notes"
 	"github.com/MeztliRA/yon"
-	"github.com/fatih/color"
-)
-
-var (
-	magenta = color.New(color.FgHiMagenta).PrintlnFunc()
-	green   = color.New(color.FgGreen).PrintFunc()
-	hiGreen = color.New(color.FgHiGreen).PrintlnFunc()
-	red     = color.New(color.FgHiRed).PrintlnFunc()
+	fatihcolor "github.com/fatih/color"
 )
 
 func View(notes []string) {
-	magenta("\nnotes:")
+	color.Magentaln("\nnotes:")
 	if len(notes) == 0 {
-		fmt.Println("\tno notes")
+		color.Red("\tno notes")
 	} else {
 		for _, v := range notes {
 			fmt.Printf("\t- %s\n", v)
@@ -35,7 +29,7 @@ func View(notes []string) {
 func Add(notes []string) []string {
 	reader := bufio.NewReader(os.Stdin)
 
-	green("\nenter new note: ")
+	color.Magenta("\nenter new note: ")
 	note, err := reader.ReadString('\n')
 	if err != nil {
 		log.Fatal(err)
@@ -44,28 +38,27 @@ func Add(notes []string) []string {
 
 	notes = append(notes, note)
 
-	hiGreen("\nadded new note!")
+	color.HiGreen("\nadded new note!")
 
 	return notes
 }
 
 func Delete(notes []string) []string {
-	magenta("\nnotes:")
+	color.Magentaln("\nnotes:")
 	if len(notes) == 0 {
-		fmt.Println("\tno notes to delete")
+		color.Red("\tno notes to delete")
 		return notes
 	}
 
 	reader := bufio.NewReader(os.Stdin)
-	blue := color.New(color.FgBlue).PrintfFunc()
 
 	for i, v := range notes {
-		blue("\t[%d] ", i)
+		color.Blue("\t[%d] ", i)
 		fmt.Printf("%s\n", v)
 	}
 
 	for {
-		green("\nplease enter the id of the note you want to delete: ")
+		color.Magenta("\nplease enter the id of the note you want to delete: ")
 		inputtedId, err := reader.ReadString('\n')
 		if err != nil {
 			log.Fatal(err)
@@ -84,9 +77,9 @@ func Delete(notes []string) []string {
 			continue
 		}
 
-		hiGreen("\ndeleting note...")
+		color.HiGreen("\ndeleting note...")
 		notes = removeIndex(notes, id)
-		hiGreen("\ndone!")
+		color.HiGreen("\ndone!")
 
 		return notes
 	}
@@ -98,15 +91,15 @@ func Clear() ([]string, bool) {
 		cleared bool
 	)
 
-	color.Set(color.FgGreen)
+	fatihcolor.Set(fatihcolor.FgHiMagenta)
 	response := yon.Prompt("\nare you sure you want to delete all your note")
-	color.Unset()
+	fatihcolor.Unset()
 	if response == yon.Yes {
-		hiGreen("\nall notes deleted!")
+		color.HiGreen("\nall notes deleted!")
 		cleared = true
 		return notes, cleared
 	} else {
-		red("\ncancelled...")
+		color.Red("\ncancelled...")
 		cleared = false
 		return notes, cleared
 	}

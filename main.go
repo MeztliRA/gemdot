@@ -8,15 +8,14 @@ package main
 import (
 	"bufio"
 	"encoding/json"
-	"fmt"
 	"log"
 	"os"
 	"strings"
 
+	"github.com/MeztliRA/gemdot/color"
 	files "github.com/MeztliRA/gemdot/file"
 	"github.com/MeztliRA/gemdot/help"
 	note "github.com/MeztliRA/gemdot/notes"
-	"github.com/fatih/color"
 )
 
 func main() {
@@ -60,10 +59,9 @@ func readFile() []string {
 
 func userAction(notes []string) {
 	reader := bufio.NewReader(os.Stdin)
-	green := color.New(color.FgGreen).PrintFunc()
 L:
 	for {
-		green("what do you want to do(view, add, delete, clear, help) ")
+		color.Green("what do you want to do(view, add, delete, clear, help) ")
 		response, err := reader.ReadString('\n')
 		if err != nil {
 			log.Fatal(err)
@@ -92,7 +90,7 @@ L:
 			help.Print()
 			break L
 		default:
-			fmt.Println("unknown action")
+			color.Red("unknown action")
 			continue
 		}
 	}
