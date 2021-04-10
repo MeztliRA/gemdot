@@ -21,7 +21,7 @@ func View(notes []string) {
 		color.Red("\tno notes")
 	} else {
 		for _, v := range notes {
-			fmt.Printf("\t- %s\n", v)
+			fmt.Printf("\t• %s\n", v)
 		}
 	}
 }
