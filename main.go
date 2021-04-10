@@ -9,6 +9,7 @@ import (
 	"bufio"
 	"log"
 	"os"
+	"os/user"
 	"strings"
 
 	"github.com/MeztliRA/gemdot/color"
@@ -26,6 +27,13 @@ func main() {
 
 func userAction(notes []string) {
 	reader := bufio.NewReader(os.Stdin)
+
+	user, err := user.Current()
+	if err != nil {
+		log.Fatal(err)
+	}
+	username := user.Username
+	color.Greenf("hello, %s!\n", username)
 L:
 	for {
 		color.Green("what do you want to do(view, add, delete, clear, help) ")
