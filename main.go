@@ -15,17 +15,7 @@ import (
 func main() {
 	checkFile()
 
-	file, err := os.ReadFile(note.File)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	var notes []string
-
-	unmarshalErr := json.Unmarshal(file, &notes)
-	if unmarshalErr != nil {
-		log.Fatal(unmarshalErr)
-	}
+	notes := readFile()
 
 	reader := bufio.NewReader(os.Stdin)
 
@@ -76,4 +66,20 @@ func checkFile() {
 
 		files.Overwrite(notes)
 	}
+}
+
+func readFile() []string {
+	file, err := os.ReadFile(note.File)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var notes []string
+
+	unmarshalErr := json.Unmarshal(file, &notes)
+	if unmarshalErr != nil {
+		log.Fatal(unmarshalErr)
+	}
+
+	return notes
 }
