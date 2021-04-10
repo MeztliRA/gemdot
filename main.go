@@ -34,9 +34,14 @@ func userAction(notes []string) {
 	}
 	username := user.Username
 	color.Greenf("hello, %s!\n", username)
-L:
+
+	firstTime := true
 	for {
-		color.Green("what do you want to do(view, add, delete, clear, help) ")
+		if firstTime {
+			color.Green("what do you want to do(view, add, delete, clear, help, quit) ")
+		} else {
+			color.Green("\nwhat do you want to do(view, add, delete, clear, help, quit) ")
+		}
 		response, err := reader.ReadString('\n')
 		if err != nil {
 			log.Fatal(err)
@@ -46,27 +51,25 @@ L:
 		switch response {
 		case "View", "view", "VIEW":
 			files.View(notes)
-			break L
 		case "Add", "add", "ADD":
 			notes = files.Add(notes)
 			files.Overwrite(notes)
-			break L
 		case "Delete", "delete", "DELETE":
 			notes = files.Delete(notes)
 			files.Overwrite(notes)
-			break L
 		case "Clear", "clear", "CLEAR":
 			notesGet, cleared := files.Clear()
 			if cleared {
 				files.Overwrite(notesGet)
 			}
-			break L
 		case "Help", "help", "HELP":
 			help.Print()
-			break L
+		case "Quit", "quit", "QUIT":
+			os.Exit(0)
 		default:
 			color.Red("unknown action")
-			continue
 		}
+
+		firstTime = false
 	}
 }

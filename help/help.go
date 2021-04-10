@@ -8,7 +8,7 @@ import (
 
 var (
 	helpMessageHeader = "\nAction:"
-	helpMessage       = "\n\tview: view your notes\n\tadd: add a note\n\tdelete: delete a note\n\tclear: delete all note\n\thelp: show help message"
+	helpMessage       = "\n\tview: view your notes\n\tadd: add a note\n\tdelete: delete a note\n\tclear: delete all note\n\thelp: show help message\n\tquit: quit the app"
 )
 
 func Print() {
