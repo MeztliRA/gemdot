@@ -17,8 +17,42 @@ func main() {
 
 	notes := readFile()
 
-	reader := bufio.NewReader(os.Stdin)
+	userAction(notes)
+}
 
+func checkFile() {
+	if _, err := os.Stat(note.File); os.IsNotExist(err) {
+		if _, err := os.Stat(note.Directory); os.IsNotExist(err) {
+			dirErr := os.Mkdir(note.Directory, 0755)
+			if dirErr != nil {
+				log.Fatal(dirErr)
+			}
+		}
+
+		var notes []string
+
+		files.Overwrite(notes)
+	}
+}
+
+func readFile() []string {
+	file, err := os.ReadFile(note.File)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var notes []string
+
+	unmarshalErr := json.Unmarshal(file, &notes)
+	if unmarshalErr != nil {
+		log.Fatal(unmarshalErr)
+	}
+
+	return notes
+}
+
+func userAction(notes []string) {
+	reader := bufio.NewReader(os.Stdin)
 L:
 	for {
 		fmt.Print("what do you want to do(view, add, delete, clear) ")
@@ -51,35 +85,4 @@ L:
 			continue
 		}
 	}
-}
-
-func checkFile() {
-	if _, err := os.Stat(note.File); os.IsNotExist(err) {
-		if _, err := os.Stat(note.Directory); os.IsNotExist(err) {
-			dirErr := os.Mkdir(note.Directory, 0755)
-			if dirErr != nil {
-				log.Fatal(dirErr)
-			}
-		}
-
-		var notes []string
-
-		files.Overwrite(notes)
-	}
-}
-
-func readFile() []string {
-	file, err := os.ReadFile(note.File)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	var notes []string
-
-	unmarshalErr := json.Unmarshal(file, &notes)
-	if unmarshalErr != nil {
-		log.Fatal(unmarshalErr)
-	}
-
-	return notes
 }
