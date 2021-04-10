@@ -14,6 +14,7 @@ import (
 	"strings"
 
 	files "github.com/MeztliRA/gemdot/file"
+	"github.com/MeztliRA/gemdot/help"
 	note "github.com/MeztliRA/gemdot/notes"
 )
 
@@ -60,7 +61,7 @@ func userAction(notes []string) {
 	reader := bufio.NewReader(os.Stdin)
 L:
 	for {
-		fmt.Print("what do you want to do(view, add, delete, clear) ")
+		fmt.Print("what do you want to do(view, add, delete, clear, help) ")
 		response, err := reader.ReadString('\n')
 		if err != nil {
 			log.Fatal(err)
@@ -84,6 +85,9 @@ L:
 			if cleared {
 				files.Overwrite(notesGet)
 			}
+			break L
+		case "Help", "help", "HELP":
+			help.Print()
 			break L
 		default:
 			fmt.Println("unknown action")
