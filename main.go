@@ -16,6 +16,7 @@ import (
 	files "github.com/MeztliRA/gemdot/file"
 	"github.com/MeztliRA/gemdot/help"
 	note "github.com/MeztliRA/gemdot/notes"
+	"github.com/fatih/color"
 )
 
 func main() {
@@ -59,9 +60,10 @@ func readFile() []string {
 
 func userAction(notes []string) {
 	reader := bufio.NewReader(os.Stdin)
+	green := color.New(color.FgGreen).PrintFunc()
 L:
 	for {
-		fmt.Print("what do you want to do(view, add, delete, clear, help) ")
+		green("what do you want to do(view, add, delete, clear, help) ")
 		response, err := reader.ReadString('\n')
 		if err != nil {
 			log.Fatal(err)

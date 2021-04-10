@@ -11,10 +11,18 @@ import (
 
 	note "github.com/MeztliRA/gemdot/notes"
 	"github.com/MeztliRA/yon"
+	"github.com/fatih/color"
+)
+
+var (
+	magenta = color.New(color.FgHiMagenta).PrintlnFunc()
+	green   = color.New(color.FgGreen).PrintFunc()
+	hiGreen = color.New(color.FgHiGreen).PrintlnFunc()
+	red     = color.New(color.FgHiRed).PrintlnFunc()
 )
 
 func View(notes []string) {
-	fmt.Println("\nnotes:")
+	magenta("\nnotes:")
 	if len(notes) == 0 {
 		fmt.Println("\tno notes")
 	} else {
@@ -27,7 +35,7 @@ func View(notes []string) {
 func Add(notes []string) []string {
 	reader := bufio.NewReader(os.Stdin)
 
-	fmt.Print("\nenter new note: ")
+	green("\nenter new note: ")
 	note, err := reader.ReadString('\n')
 	if err != nil {
 		log.Fatal(err)
@@ -36,26 +44,28 @@ func Add(notes []string) []string {
 
 	notes = append(notes, note)
 
-	fmt.Println("\nadded new note!")
+	hiGreen("\nadded new note!")
 
 	return notes
 }
 
 func Delete(notes []string) []string {
-	fmt.Println("\nnotes:")
+	magenta("\nnotes:")
 	if len(notes) == 0 {
 		fmt.Println("\tno notes to delete")
 		return notes
 	}
 
 	reader := bufio.NewReader(os.Stdin)
+	blue := color.New(color.FgBlue).PrintfFunc()
 
 	for i, v := range notes {
-		fmt.Printf("\t[%d] %s\n", i, v)
+		blue("\t[%d] ", i)
+		fmt.Printf("%s\n", v)
 	}
 
 	for {
-		fmt.Print("\nplease enter the id of the note you want to delete: ")
+		green("\nplease enter the id of the note you want to delete: ")
 		inputtedId, err := reader.ReadString('\n')
 		if err != nil {
 			log.Fatal(err)
@@ -74,9 +84,9 @@ func Delete(notes []string) []string {
 			continue
 		}
 
-		fmt.Println("\ndeleting note...")
+		hiGreen("\ndeleting note...")
 		notes = removeIndex(notes, id)
-		fmt.Println("\ndone!")
+		hiGreen("\ndone!")
 
 		return notes
 	}
@@ -88,13 +98,15 @@ func Clear() ([]string, bool) {
 		cleared bool
 	)
 
+	color.Set(color.FgGreen)
 	response := yon.Prompt("\nare you sure you want to delete all your note")
+	color.Unset()
 	if response == yon.Yes {
-		fmt.Println("\nall notes deleted!")
+		hiGreen("\nall notes deleted!")
 		cleared = true
 		return notes, cleared
 	} else {
-		fmt.Println("\ncancelled...")
+		red("\ncancelled...")
 		cleared = false
 		return notes, cleared
 	}
