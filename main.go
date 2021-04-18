@@ -17,6 +17,11 @@ import (
 	"github.com/MeztliRA/gemdot/help"
 )
 
+func init() {
+	log.SetPrefix("gemdot: ")
+	log.SetFlags(0)
+}
+
 func main() {
 	files.Check()
 
