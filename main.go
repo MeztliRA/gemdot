@@ -13,8 +13,12 @@ import (
 	"strings"
 
 	"github.com/MeztliRA/gemdot/color"
-	files "github.com/MeztliRA/gemdot/file"
+	"github.com/MeztliRA/gemdot/file"
 	"github.com/MeztliRA/gemdot/help"
+)
+
+const (
+	actionMessage = "what do you want to do(view, add, delete, clear, help, quit) "
 )
 
 func init() {
@@ -23,9 +27,9 @@ func init() {
 }
 
 func main() {
-	files.Check()
+	file.Check()
 
-	notes := files.Read()
+	notes := file.Read()
 
 	userAction(notes)
 }
@@ -43,9 +47,9 @@ func userAction(notes []string) {
 	firstTime := true
 	for {
 		if firstTime {
-			color.Green("what do you want to do(view, add, delete, clear, help, quit) ")
+			color.Green(actionMessage)
 		} else {
-			color.Green("\nwhat do you want to do(view, add, delete, clear, help, quit) ")
+			color.Green("\n" + actionMessage)
 		}
 		response, err := reader.ReadString('\n')
 		if err != nil {
@@ -55,17 +59,17 @@ func userAction(notes []string) {
 
 		switch response {
 		case "View", "view", "VIEW":
-			files.View(notes)
+			file.View(notes)
 		case "Add", "add", "ADD":
-			notes = files.Add(notes)
-			files.Overwrite(notes)
+			notes = file.Add(notes)
+			file.Overwrite(notes)
 		case "Delete", "delete", "DELETE":
-			notes = files.Delete(notes)
-			files.Overwrite(notes)
+			notes = file.Delete(notes)
+			file.Overwrite(notes)
 		case "Clear", "clear", "CLEAR":
-			notesGet, cleared := files.Clear()
+			notesGet, cleared := file.Clear()
 			if cleared {
-				files.Overwrite(notesGet)
+				file.Overwrite(notesGet)
 			}
 		case "Help", "help", "HELP":
 			help.Print()
