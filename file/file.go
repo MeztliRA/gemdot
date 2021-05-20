@@ -10,7 +10,7 @@ import (
 	"strings"
 
 	"github.com/MeztliRA/gemdot/color"
-	note "github.com/MeztliRA/gemdot/notes"
+	"github.com/MeztliRA/gemdot/note"
 	"github.com/MeztliRA/yon"
 	fatihcolor "github.com/fatih/color"
 )

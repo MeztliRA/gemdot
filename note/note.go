@@ -1,6 +1,7 @@
-package notes
+package note
 
 import (
+	"fmt"
 	"log"
 
 	homedir "github.com/mitchellh/go-homedir"
@@ -8,8 +9,10 @@ import (
 
 var (
 	home      = getHomedir()
-	Directory = home + "/gemdotData/"
-	File      = home + "/gemdotData/notes.json"
+	dataDir   = "gemdotData"
+	fileName  = "notes.json"
+	Directory = fmt.Sprintf("%s/%s/", home, dataDir)
+	File      = fmt.Sprintf("%s%s", Directory, fileName)
 )
 
 func getHomedir() string {
