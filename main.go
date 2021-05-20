@@ -17,6 +17,10 @@ import (
 	"github.com/MeztliRA/gemdot/help"
 )
 
+const (
+	actionMessage = "what do you want to do(view, add, delete, clear, help, quit) "
+)
+
 func init() {
 	log.SetPrefix("gemdot: ")
 	log.SetFlags(0)
@@ -43,9 +47,9 @@ func userAction(notes []string) {
 	firstTime := true
 	for {
 		if firstTime {
-			color.Green("what do you want to do(view, add, delete, clear, help, quit) ")
+			color.Green(actionMessage)
 		} else {
-			color.Green("\nwhat do you want to do(view, add, delete, clear, help, quit) ")
+			color.Green("\n" + actionMessage)
 		}
 		response, err := reader.ReadString('\n')
 		if err != nil {

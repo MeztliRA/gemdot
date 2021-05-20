@@ -65,15 +65,7 @@ func Delete(notes []string) []string {
 		}
 		inputtedId = strings.Trim(inputtedId, "\n")
 		id, err := strconv.Atoi(inputtedId)
-		if err != nil {
-			continue
-		}
-
-		if id >= len(notes) {
-			continue
-		}
-
-		if id < 0 {
+		if err != nil || id >= len(notes) || id < 0 {
 			continue
 		}
 
