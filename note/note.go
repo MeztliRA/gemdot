@@ -4,15 +4,14 @@ import (
 	"fmt"
 	"log"
 
+	c "github.com/MeztliRA/gemdot/constants"
 	homedir "github.com/mitchellh/go-homedir"
 )
 
 var (
 	home      = getHomedir()
-	dataDir   = "gemdotData"
-	fileName  = "notes.json"
-	Directory = fmt.Sprintf("%s/%s/", home, dataDir)
-	File      = fmt.Sprintf("%s%s", Directory, fileName)
+	Directory = fmt.Sprintf("%s/%s/", home, c.DataDir)
+	File      = fmt.Sprintf("%s%s", Directory, c.FileName)
 )
 
 func getHomedir() string {

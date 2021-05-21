@@ -13,12 +13,9 @@ import (
 	"strings"
 
 	"github.com/MeztliRA/gemdot/color"
+	c "github.com/MeztliRA/gemdot/constants"
 	"github.com/MeztliRA/gemdot/file"
 	"github.com/MeztliRA/gemdot/help"
-)
-
-const (
-	actionMessage = "what do you want to do(view, add, delete, clear, help, quit) "
 )
 
 func init() {
@@ -47,9 +44,9 @@ func userAction(notes []string) {
 	firstTime := true
 	for {
 		if firstTime {
-			color.Green(actionMessage)
+			color.Green(c.ActionMessage)
 		} else {
-			color.Green("\n" + actionMessage)
+			color.Green("\n" + c.ActionMessage)
 		}
 		response, err := reader.ReadString('\n')
 		if err != nil {
