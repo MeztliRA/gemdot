@@ -15,7 +15,7 @@ import (
 	"github.com/MeztliRA/gemdot/color"
 	c "github.com/MeztliRA/gemdot/constants"
 	"github.com/MeztliRA/gemdot/file"
-	"github.com/MeztliRA/gemdot/help"
+	u "github.com/MeztliRA/gemdot/utils"
 )
 
 func init() {
@@ -68,8 +68,10 @@ func userAction(notes []string) {
 			if cleared {
 				file.Overwrite(notesGet)
 			}
+		case "Version", "version", "VERSION":
+			u.PrintVersion()
 		case "Help", "help", "HELP":
-			help.Print()
+			u.PrintHelp()
 		case "Quit", "quit", "QUIT":
 			os.Exit(0)
 		default:
