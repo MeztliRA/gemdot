@@ -12,7 +12,6 @@ import (
 	"github.com/MeztliRA/gemdot/color"
 	"github.com/MeztliRA/gemdot/note"
 	"github.com/MeztliRA/yon"
-	fatihcolor "github.com/fatih/color"
 )
 
 func View(notes []string) {
@@ -83,9 +82,9 @@ func Clear() ([]string, bool) {
 		cleared bool
 	)
 
-	fatihcolor.Set(fatihcolor.FgHiMagenta)
+	color.Set(color.FgHiMagenta)
 	response := yon.Prompt("\nare you sure you want to delete all your note")
-	fatihcolor.Unset()
+	color.Unset()
 	if response == yon.Yes {
 		color.HiGreen("\nall notes deleted!")
 		cleared = true
