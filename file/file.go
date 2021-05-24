@@ -11,6 +11,7 @@ import (
 
 	"github.com/MeztliRA/gemdot/color"
 	"github.com/MeztliRA/gemdot/note"
+	u "github.com/MeztliRA/gemdot/utils"
 	"github.com/MeztliRA/yon"
 )
 
@@ -62,7 +63,7 @@ func Delete(notes []string) []string {
 		if err != nil {
 			log.Fatal(err)
 		}
-		inputtedId = strings.Trim(inputtedId, "\n")
+		inputtedId = u.TrimString(inputtedId)
 		id, err := strconv.Atoi(inputtedId)
 		if err != nil || id >= len(notes) || id < 0 {
 			continue
