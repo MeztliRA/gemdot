@@ -10,6 +10,7 @@ import (
 	"log"
 	"os"
 	"os/user"
+	"strings"
 
 	"github.com/MeztliRA/gemdot/color"
 	c "github.com/MeztliRA/gemdot/constants"
@@ -51,7 +52,7 @@ func userAction(notes []string) {
 		if err != nil {
 			log.Fatal(err)
 		}
-		response = u.TrimString(response)
+		response = strings.TrimSpace(response)
 
 		switch response {
 		case "View", "view", "VIEW":
