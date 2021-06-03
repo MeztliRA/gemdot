@@ -13,9 +13,11 @@ import (
 	"strings"
 
 	"github.com/MeztliRA/gemdot/color"
+	"github.com/MeztliRA/gemdot/config"
 	c "github.com/MeztliRA/gemdot/constants"
 	"github.com/MeztliRA/gemdot/file"
 	u "github.com/MeztliRA/gemdot/utils"
+	cfg "github.com/olebedev/config"
 )
 
 func init() {
@@ -27,19 +29,24 @@ func main() {
 	file.Check()
 
 	notes := file.Read()
+	config := config.Read()
 
-	userAction(notes)
+	userAction(notes, config)
 }
 
-func userAction(notes []string) {
+func userAction(notes []string, config *cfg.Config) {
 	reader := bufio.NewReader(os.Stdin)
 
-	user, err := user.Current()
-	if err != nil {
+	if greet, err := config.Bool("greeting"); greet && err == nil {
+		user, err := user.Current()
+		if err != nil {
+			log.Fatal(err)
+		}
+		username := user.Username
+		color.Greenf("hello, %s!\n", username)
+	} else if err != nil {
 		log.Fatal(err)
 	}
-	username := user.Username
-	color.Greenf("hello, %s!\n", username)
 
 	firstTime := true
 	for {
