@@ -15,7 +15,7 @@ import (
 	"github.com/MeztliRA/gemdot/color"
 	"github.com/MeztliRA/gemdot/config"
 	c "github.com/MeztliRA/gemdot/constants"
-	"github.com/MeztliRA/gemdot/file"
+	"github.com/MeztliRA/gemdot/note"
 	u "github.com/MeztliRA/gemdot/utils"
 	cfg "github.com/olebedev/config"
 )
@@ -26,9 +26,9 @@ func init() {
 }
 
 func main() {
-	file.Check()
+	note.Check()
 
-	notes := file.Read()
+	notes := note.Read()
 	config := config.Read()
 
 	userAction(notes, config)
@@ -63,17 +63,17 @@ func userAction(notes []string, config *cfg.Config) {
 
 		switch response {
 		case "View", "view", "VIEW":
-			file.View(notes)
+			note.View(notes)
 		case "Add", "add", "ADD":
-			notes = file.Add(notes)
-			file.Overwrite(notes)
+			notes = note.Add(notes)
+			note.Overwrite(notes)
 		case "Delete", "delete", "DELETE":
-			notes = file.Delete(notes)
-			file.Overwrite(notes)
+			notes = note.Delete(notes)
+			note.Overwrite(notes)
 		case "Clear", "clear", "CLEAR":
-			notesGet, cleared := file.Clear()
+			notesGet, cleared := note.Clear()
 			if cleared {
-				file.Overwrite(notesGet)
+				note.Overwrite(notesGet)
 			}
 		case "Version", "version", "VERSION":
 			u.PrintVersion()
