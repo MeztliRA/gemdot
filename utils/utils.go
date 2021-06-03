@@ -2,9 +2,11 @@ package utils
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/MeztliRA/gemdot/color"
 	c "github.com/MeztliRA/gemdot/constants"
+	homedir "github.com/mitchellh/go-homedir"
 )
 
 func PrintVersion() {
@@ -15,4 +17,12 @@ func PrintHelp() {
 	PrintVersion()
 	color.Magenta(c.HelpMessageHeader)
 	fmt.Println(c.HelpMessage)
+}
+
+func GetHomedir() string {
+	home, err := homedir.Dir()
+	if err != nil {
+		log.Fatal(err)
+	}
+	return home
 }
