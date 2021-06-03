@@ -26,3 +26,7 @@ func GetHomedir() string {
 	}
 	return home
 }
+
+func RemoveIndex(notes []string, index int) []string {
+	return append(notes[:index], notes[index+1:]...)
+}

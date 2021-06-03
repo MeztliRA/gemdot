@@ -77,7 +77,7 @@ func Delete(notes []string) []string {
 		}
 
 		color.HiGreen("\ndeleting note...")
-		notes = removeIndex(notes, id)
+		notes = u.RemoveIndex(notes, id)
 		color.HiGreen("\ndone!")
 
 		return notes
@@ -166,8 +166,4 @@ func Read() []string {
 	}
 
 	return notes
-}
-
-func removeIndex(notes []string, index int) []string {
-	return append(notes[:index], notes[index+1:]...)
 }
