@@ -31,10 +31,10 @@ func main() {
 	notes := note.Read()
 	config := config.Read()
 
-	userAction(notes, config)
+	userCommand(notes, config)
 }
 
-func userAction(notes []string, config *cfg.Config) {
+func userCommand(notes []string, config *cfg.Config) {
 	reader := bufio.NewReader(os.Stdin)
 
 	if greet, err := config.Bool("greeting"); greet && err == nil {
@@ -51,9 +51,9 @@ func userAction(notes []string, config *cfg.Config) {
 	firstTime := true
 	for {
 		if firstTime {
-			color.Green(c.ActionMessage)
+			color.Green(c.CommandMessage)
 		} else {
-			color.Green("\n" + c.ActionMessage)
+			color.Green("\n" + c.CommandMessage)
 		}
 		response, err := reader.ReadString('\n')
 		if err != nil {
