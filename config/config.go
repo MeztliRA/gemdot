@@ -1,6 +1,7 @@
 package config
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"os"
@@ -12,10 +13,12 @@ import (
 
 type Config struct {
 	Greeting bool `json:"greeting"`
+	NoColor  bool `json:"no-color"`
 }
 
 var Default = Config{
 	Greeting: true,
+	NoColor:  false,
 }
 
 var (
@@ -37,4 +40,26 @@ func Read() *config.Config {
 	}
 
 	return config
+}
+
+func Check() {
+	// check for config file existance
+	if _, err := os.Stat(File); os.IsNotExist(err) {
+		if _, err := os.Stat(Directory); os.IsNotExist(err) {
+			dirErr := os.Mkdir(Directory, 0755)
+			if dirErr != nil {
+				log.Fatal(dirErr)
+			}
+		}
+
+		jsonData, err := json.MarshalIndent(Default, "", "	")
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		writeErr := os.WriteFile(File, jsonData, 0644)
+		if writeErr != nil {
+			log.Fatal(writeErr)
+		}
+	}
 }

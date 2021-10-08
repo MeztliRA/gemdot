@@ -10,7 +10,6 @@ import (
 	"strings"
 
 	"github.com/MeztliRA/gemdot/color"
-	"github.com/MeztliRA/gemdot/config"
 	c "github.com/MeztliRA/gemdot/constants"
 	u "github.com/MeztliRA/gemdot/utils"
 	"github.com/MeztliRA/yon"
@@ -129,26 +128,6 @@ func Check() {
 		var notes []string
 
 		Overwrite(notes)
-	}
-
-	// check for config file existance
-	if _, err := os.Stat(config.File); os.IsNotExist(err) {
-		if _, err := os.Stat(config.Directory); os.IsNotExist(err) {
-			dirErr := os.Mkdir(config.Directory, 0755)
-			if dirErr != nil {
-				log.Fatal(dirErr)
-			}
-		}
-
-		jsonData, err := json.MarshalIndent(config.Default, "", "	")
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		writeErr := os.WriteFile(config.File, jsonData, 0644)
-		if writeErr != nil {
-			log.Fatal(writeErr)
-		}
 	}
 }
 

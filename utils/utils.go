@@ -3,6 +3,7 @@ package utils
 import (
 	"fmt"
 	"log"
+	"os/user"
 
 	"github.com/MeztliRA/gemdot/color"
 	c "github.com/MeztliRA/gemdot/constants"
@@ -17,6 +18,15 @@ func PrintHelp() {
 	PrintVersion()
 	color.Magenta(c.HelpMessageHeader)
 	fmt.Println(c.HelpMessage)
+}
+
+func PrintGreeting() {
+	user, err := user.Current()
+	if err != nil {
+		log.Fatal(err)
+	}
+	username := user.Username
+	color.Greenf("hello, %s!\n", username)
 }
 
 func GetHomedir() string {

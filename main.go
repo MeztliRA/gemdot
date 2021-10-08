@@ -9,7 +9,6 @@ import (
 	"bufio"
 	"log"
 	"os"
-	"os/user"
 	"strings"
 
 	"github.com/MeztliRA/gemdot/color"
@@ -17,6 +16,7 @@ import (
 	c "github.com/MeztliRA/gemdot/constants"
 	"github.com/MeztliRA/gemdot/note"
 	u "github.com/MeztliRA/gemdot/utils"
+	fc "github.com/fatih/color"
 	cfg "github.com/olebedev/config"
 )
 
@@ -27,6 +27,7 @@ func init() {
 
 func main() {
 	note.Check()
+	config.Check()
 
 	notes := note.Read()
 	config := config.Read()
@@ -37,15 +38,16 @@ func main() {
 func userCommand(notes []string, config *cfg.Config) {
 	reader := bufio.NewReader(os.Stdin)
 
-	if greet, err := config.Bool("greeting"); greet && err == nil {
-		user, err := user.Current()
-		if err != nil {
-			log.Fatal(err)
-		}
-		username := user.Username
-		color.Greenf("hello, %s!\n", username)
+	if noColor, err := config.Bool("no-color"); noColor && err == nil {
+		fc.NoColor = true
 	} else if err != nil {
-		log.Fatal(err)
+		fc.NoColor = false
+	} else {
+		fc.NoColor = false
+	}
+
+	if greet, err := config.Bool("greeting"); greet && err == nil || err != nil {
+		u.PrintGreeting()
 	}
 
 	firstTime := true
