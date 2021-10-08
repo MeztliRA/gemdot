@@ -21,23 +21,28 @@ import (
 )
 
 func init() {
+	// set log
 	log.SetPrefix("gemdot: ")
 	log.SetFlags(0)
 }
 
 func main() {
+	// check for files
 	note.Check()
 	config.Check()
 
+	// read files
 	notes := note.Read()
 	config := config.Read()
 
+	// read and run user's commands
 	userCommand(notes, config)
 }
 
 func userCommand(notes []string, config *cfg.Config) {
 	reader := bufio.NewReader(os.Stdin)
 
+	// apply user's config
 	if noColor, err := config.Bool("no-color"); noColor && err == nil {
 		fc.NoColor = true
 	} else if err != nil {
@@ -50,6 +55,7 @@ func userCommand(notes []string, config *cfg.Config) {
 		u.PrintGreeting()
 	}
 
+	// main loop
 	firstTime := true
 	for {
 		if firstTime {
@@ -57,6 +63,8 @@ func userCommand(notes []string, config *cfg.Config) {
 		} else {
 			color.Green("\n" + c.CommandMessage)
 		}
+
+		// take user input
 		response, err := reader.ReadString('\n')
 		if err != nil {
 			log.Fatal(err)

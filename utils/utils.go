@@ -29,6 +29,7 @@ func PrintGreeting() {
 	color.Greenf("hello, %s!\n", username)
 }
 
+// get user's home directory
 func GetHomedir() string {
 	home, err := homedir.Dir()
 	if err != nil {
@@ -37,6 +38,7 @@ func GetHomedir() string {
 	return home
 }
 
+// remove index from array (notes)
 func RemoveIndex(notes []string, index int) []string {
 	return append(notes[:index], notes[index+1:]...)
 }

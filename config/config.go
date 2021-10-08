@@ -16,6 +16,7 @@ type Config struct {
 	NoColor  bool `json:"no-color"`
 }
 
+// default config
 var Default = Config{
 	Greeting: true,
 	NoColor:  false,
@@ -27,6 +28,7 @@ var (
 	File      = fmt.Sprintf("%s%s", Directory, c.ConfigFileName)
 )
 
+// read config file
 func Read() *config.Config {
 	file, err := os.ReadFile(File)
 	if err != nil {
@@ -42,8 +44,8 @@ func Read() *config.Config {
 	return config
 }
 
+// check for config file existance
 func Check() {
-	// check for config file existance
 	if _, err := os.Stat(File); os.IsNotExist(err) {
 		if _, err := os.Stat(Directory); os.IsNotExist(err) {
 			dirErr := os.Mkdir(Directory, 0755)

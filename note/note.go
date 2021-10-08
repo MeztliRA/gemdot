@@ -21,6 +21,7 @@ var (
 	File      = fmt.Sprintf("%s%s", Directory, c.FileName)
 )
 
+// view notes
 func View(notes []string) {
 	color.Magentaln("\nnotes:")
 	if len(notes) == 0 {
@@ -32,6 +33,7 @@ func View(notes []string) {
 	}
 }
 
+// add notes
 func Add(notes []string) []string {
 	reader := bufio.NewReader(os.Stdin)
 
@@ -49,6 +51,7 @@ func Add(notes []string) []string {
 	return notes
 }
 
+// delete notes
 func Delete(notes []string) []string {
 	color.Magentaln("\nnotes:")
 	if len(notes) == 0 {
@@ -83,6 +86,7 @@ func Delete(notes []string) []string {
 	}
 }
 
+// delete all notes
 func Clear() ([]string, bool) {
 	var (
 		notes   []string
@@ -103,6 +107,7 @@ func Clear() ([]string, bool) {
 	}
 }
 
+// save notes
 func Overwrite(notes []string) {
 	jsonData, err := json.MarshalIndent(notes, "", "	")
 	if err != nil {
@@ -115,8 +120,8 @@ func Overwrite(notes []string) {
 	}
 }
 
+// check for notes file existance
 func Check() {
-	// check for notes file existance
 	if _, err := os.Stat(File); os.IsNotExist(err) {
 		if _, err := os.Stat(Directory); os.IsNotExist(err) {
 			dirErr := os.Mkdir(Directory, 0755)
@@ -131,6 +136,7 @@ func Check() {
 	}
 }
 
+// read notes file
 func Read() []string {
 	file, err := os.ReadFile(File)
 	if err != nil {
